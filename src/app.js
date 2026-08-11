@@ -16,4 +16,13 @@ app.use(express.urlencoded({
     limit: "16kb"
 }));// middleware that parses incoming URL-encoded requests and puts the parsed data in req.body. It allows your Express.js application to handle URL-encoded data sent in HTTP requests, such as form submissions.
 app.use(express.static("public"));// middleware that serves static files from the "public" directory. It allows your Express.js application to serve static assets like images, CSS files, and JavaScript files directly to clients without needing additional route handling.
-export default app;
+
+
+
+//routes import
+import userRouter from './routes/user.routes.js';
+// routes declaration
+app.use("/api/v1/users",userRouter);
+//http://localhost:3000/api/v1/users/register
+export{app}
+
