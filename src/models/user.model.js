@@ -18,7 +18,7 @@ const userSchema = new Schema({
         lowercase:true,
         trim:true
     },
-    fullname:{
+    fullName:{
         type:String,
         required:true,
         trim:true,
@@ -50,11 +50,11 @@ const userSchema = new Schema({
 
 },{timestamps:true
 });
-userSchema.pre('save',async function(next){
+userSchema.pre('save',async function(){// mongoose 9 use ho rha hai wha next use nhi hota hai
    
-     if(!this.isModified("password")) return next();
+     if(!this.isModified("password")) return// next();
      this.password = await bcrypt.hash(this.password,10);
-     next();
+     //next();
 });
 userSchema.methods.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password,this.password);
@@ -65,7 +65,7 @@ userSchema.methods.generateAccessToken = function(){// token generate krne ke li
         _id:this._id,
         email:this.email,
         username:this.username,
-        fullname:this.fullname
+        fullName:this.fullName
     },process.env.ACCESS_TOKEN_SECRET,{expiresIn:process.env.ACCESS_TOKEN_EXPIRES}
 )
 }
@@ -74,7 +74,7 @@ userSchema.methods.generateRefreshToken = function(){
         _id:this._id,
         email:this.email,
         username:this.username,
-        fullname:this.fullname
+        fullName:this.fullName
     },
         process.env.REFRESH_TOKEN_SECRET,{expiresIn:process.env.REFRESH_TOKEN_EXPIRES}
         )
