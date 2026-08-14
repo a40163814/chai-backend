@@ -178,7 +178,7 @@ const registerUser=asyncHandler(async (req,res)=>{
         // if(!user){
         //     throw new ApiError("user not found",404);
         // }
-        return res.status(200).json(200,req.user," current user fetch   successfully");
+        return res.status(200).json(new ApiResponse(200,req.user," current user fetch   successfully"));
         
     })
     const updateAccountDetails=asyncHandler(async(req,res)=>{
